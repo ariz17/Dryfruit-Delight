@@ -1,26 +1,16 @@
-import { Link } from 'react-router-dom';
-import { ShoppingCart, Search, X, Sun, Moon, User } from 'lucide-react';
+import { ShoppingCart, Search, X, Sun, Moon } from 'lucide-react';
 import { useStore } from '../store/useStore';
 
 export default function Header() {
   const { 
-    profile, 
-    subsidyPercent, 
-    cart, 
-    searchQuery, 
-    setSearchQuery, 
-    openModal,
-    darkMode,
-    toggleDarkMode,
-    activeSection,
-    setActiveSection
+    profile, subsidyPercent, cart, searchQuery, setSearchQuery, 
+    openModal, darkMode, toggleDarkMode, activeSection, setActiveSection 
   } = useStore();
 
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <header className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white sticky top-0 z-40 border-b border-zinc-200 dark:border-zinc-800 transition-colors duration-200">
-
       {/* Top Announcement Bar */}
       <div className="bg-zinc-950 dark:bg-zinc-900 text-zinc-300 text-xs py-2 px-4 border-b border-zinc-800">
         <div className="container mx-auto flex items-center justify-between">
@@ -40,12 +30,8 @@ export default function Header() {
 
       {/* Main Nav */}
       <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-
         {/* Brand */}
-        <button
-          onClick={() => setActiveSection('home')}
-          className="flex items-center gap-3 group flex-shrink-0"
-        >
+        <button onClick={() => setActiveSection('home')} className="flex items-center gap-3 group flex-shrink-0">
           <div className="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-black flex items-center justify-center font-black text-lg shadow-sm transition group-hover:scale-105">
             🌰
           </div>
@@ -67,17 +53,12 @@ export default function Header() {
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
-                if (activeSection !== 'dryfruits' && e.target.value.trim()) {
-                  setActiveSection('dryfruits');
-                }
+                if (activeSection !== 'dryfruits' && e.target.value.trim()) setActiveSection('dryfruits');
               }}
               className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl pl-10 pr-9 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-white transition"
             />
             {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200"
-              >
+              <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200">
                 <X className="w-4 h-4" />
               </button>
             )}
@@ -86,17 +67,13 @@ export default function Header() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-2">
-
           {/* Dark Mode Toggle */}
           <button
             onClick={toggleDarkMode}
             className="w-9 h-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 transition flex items-center justify-center"
             title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
-            {darkMode
-              ? <Sun className="w-4 h-4 text-yellow-400" />
-              : <Moon className="w-4 h-4" />
-            }
+            {darkMode ? <Sun className="w-4 h-4 text-yellow-400" /> : <Moon className="w-4 h-4" />}
           </button>
 
           {/* Patient Profile Button */}
@@ -131,7 +108,6 @@ export default function Header() {
             )}
           </button>
         </div>
-
       </div>
     </header>
   );

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, FileText, Download, ShieldCheck, CheckCircle2, Printer } from 'lucide-react';
+import { X, FileText, Printer } from 'lucide-react';
 import { useStore } from '../../store/useStore';
 
 export default function MedicalInvoiceModal() {
@@ -22,8 +22,6 @@ export default function MedicalInvoiceModal() {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-2xs animate-in fade-in duration-200">
       <div className="bg-white dark:bg-zinc-950 rounded-xl max-w-2xl w-full max-h-[92vh] overflow-y-auto border border-zinc-200 dark:border-zinc-800 shadow-2xl text-zinc-900 dark:text-zinc-100">
-        
-        {/* Header */}
         <div className="bg-zinc-900 text-white dark:bg-black p-4 flex items-center justify-between sticky top-0 z-10 border-b border-zinc-800">
           <div className="flex items-center gap-2.5">
             <span className="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center">
@@ -34,18 +32,13 @@ export default function MedicalInvoiceModal() {
               <p className="text-[10px] text-zinc-400">Pre-formatted for Income Tax Section 80D / Apollo Mediclaim</p>
             </div>
           </div>
-          <button 
-            onClick={closeModal}
-            className="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition"
-          >
+          <button onClick={closeModal} className="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition">
             <X className="w-4 h-4" />
           </button>
         </div>
 
         <div className="p-5 space-y-4">
-          {/* Printable Invoice Container (Always clear white with black print styling for official medical submission) */}
           <div id="printable-invoice" className="border border-zinc-300 dark:border-zinc-700 rounded-xl p-5 bg-white text-zinc-900 space-y-4 text-xs font-sans shadow-xs">
-            {/* Top Invoice Header */}
             <div className="flex justify-between items-start border-b border-zinc-200 pb-3">
               <div>
                 <h2 className="text-base font-extrabold text-black tracking-tight">DRYFRUIT DELIGHT HEALTHCARE PVT LTD</h2>
@@ -61,7 +54,6 @@ export default function MedicalInvoiceModal() {
               </div>
             </div>
 
-            {/* Patient & Doctor Box */}
             <div className="grid grid-cols-2 gap-4 bg-zinc-50 p-3 rounded-lg border border-zinc-200">
               <div>
                 <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Patient Details</span>
@@ -77,7 +69,6 @@ export default function MedicalInvoiceModal() {
               </div>
             </div>
 
-            {/* Line Items */}
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-zinc-200 text-[11px] text-zinc-500">
@@ -112,7 +103,6 @@ export default function MedicalInvoiceModal() {
               </tbody>
             </table>
 
-            {/* Total Calculation */}
             <div className="border-t border-zinc-200 pt-3 flex justify-between items-center text-xs">
               <div className="text-[10px] text-zinc-500 max-w-xs">
                 Certified that the above nutritional dryfruits have been dispensed under Apollo Hospital Senior Nutrition Care.
@@ -127,19 +117,11 @@ export default function MedicalInvoiceModal() {
             </div>
           </div>
 
-          {/* Action buttons */}
           <div className="flex gap-2">
-            <button
-              onClick={closeModal}
-              className="w-1/2 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-semibold text-xs py-2.5 rounded-lg transition"
-            >
+            <button onClick={closeModal} className="w-1/2 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-semibold text-xs py-2.5 rounded-lg transition">
               Close
             </button>
-            <button
-              onClick={handleDownload}
-              disabled={downloading}
-              className="w-1/2 bg-zinc-900 hover:bg-black text-white dark:bg-white dark:text-black dark:hover:bg-zinc-200 font-bold text-xs py-2.5 rounded-lg transition shadow-xs flex items-center justify-center gap-1.5"
-            >
+            <button onClick={handleDownload} disabled={downloading} className="w-1/2 bg-zinc-900 hover:bg-black text-white dark:bg-white dark:text-black dark:hover:bg-zinc-200 font-bold text-xs py-2.5 rounded-lg transition shadow-xs flex items-center justify-center gap-1.5">
               <Printer className="w-3.5 h-3.5" />
               <span>{downloading ? 'Preparing Print...' : 'Print / Save PDF'}</span>
             </button>

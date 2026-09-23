@@ -1,58 +1,48 @@
-import { 
-  Home,
-  HeartPulse, 
-  User, 
-  Sparkles, 
-  PhoneCall,
-  Package,
-  SlidersHorizontal
-} from 'lucide-react';
+import { Home, HeartPulse, User, Sparkles, PhoneCall, Package, SlidersHorizontal } from 'lucide-react';
 import { useStore } from '../store/useStore';
 
 const NAV_SECTIONS = [
-  { id: 'home',       label: 'Home',             icon: Home,      sub: 'Overview & Dashboard' },
-  { id: 'dryfruits',  label: 'Dry Fruits',        icon: Package,   sub: '10 Premium Varieties' },
-  { id: 'health',     label: 'Health & Subsidy',  icon: HeartPulse, sub: 'Apollo Rx & Discounts' },
-  { id: 'profile',    label: 'My Profile',         icon: User,      sub: 'Patient Vitals & UHID' },
-  { id: 'features',   label: 'Tools & Features',  icon: Sparkles,  sub: 'Planner, Guide & Refill' },
+  { id: 'home', label: 'Home', icon: Home, sub: 'Overview & Dashboard' },
+  { id: 'dryfruits', label: 'Dry Fruits', icon: Package, sub: '10 Premium Varieties' },
+  { id: 'health', label: 'Health & Subsidy', icon: HeartPulse, sub: 'Apollo Rx & Discounts' },
+  { id: 'profile', label: 'My Profile', icon: User, sub: 'Patient Vitals & UHID' },
+  { id: 'features', label: 'Tools & Features', icon: Sparkles, sub: 'Planner, Guide & Refill' }
 ];
 
 const CATEGORIES = [
-  { name: 'All',             icon: '🌰', count: 10 },
-  { name: 'Almonds',         icon: '🥜', count: 2  },
-  { name: 'Cashews',         icon: '🧈', count: 1  },
-  { name: 'Walnuts',         icon: '🧠', count: 1  },
-  { name: 'Figs',            icon: '🍯', count: 1  },
-  { name: 'Pistachios',      icon: '🟢', count: 1  },
-  { name: 'Dates',           icon: '🌴', count: 1  },
-  { name: 'Raisins',         icon: '🍇', count: 1  },
-  { name: 'Seeds & Berries', icon: '🫐', count: 2  },
+  { name: 'All', icon: '🌰', count: 10 },
+  { name: 'Almonds', icon: '🥜', count: 2 },
+  { name: 'Cashews', icon: '🧈', count: 1 },
+  { name: 'Walnuts', icon: '🧠', count: 1 },
+  { name: 'Figs', icon: '🍯', count: 1 },
+  { name: 'Pistachios', icon: '🟢', count: 1 },
+  { name: 'Dates', icon: '🌴', count: 1 },
+  { name: 'Raisins', icon: '🍇', count: 1 },
+  { name: 'Seeds & Berries', icon: '🫐', count: 2 }
 ];
 
 const HEALTH_FILTERS = [
-  { id: 'All',              label: 'All Benefits'      },
+  { id: 'All', label: 'All Benefits' },
   { id: 'Diabetic-Friendly', label: 'Diabetic-Friendly' },
-  { id: 'Heart & BP Care',  label: 'Heart & BP Care'   },
-  { id: 'Bone & Joint',     label: 'Bone & Joint'      },
-  { id: 'Memory & Brain',   label: 'Memory & Brain'    },
+  { id: 'Heart & BP Care', label: 'Heart & BP Care' },
+  { id: 'Bone & Joint', label: 'Bone & Joint' },
+  { id: 'Memory & Brain', label: 'Memory & Brain' }
 ];
 
 export default function Sidebar() {
   const {
-    profile,
-    subsidyPercent,
-    selectedCategory,
-    setSelectedCategory,
-    selectedHealthNeed,
-    setSelectedHealthNeed,
-    activeSection,
-    setActiveSection,
+    profile, subsidyPercent, selectedCategory, setSelectedCategory,
+    selectedHealthNeed, setSelectedHealthNeed, activeSection, setActiveSection
   } = useStore();
+
+  const handleNavFilter = (setter, val) => {
+    setter(val);
+    if (activeSection !== 'dryfruits' && activeSection !== 'home') setActiveSection('dryfruits');
+  };
 
   return (
     <aside className="w-full lg:w-72 flex-shrink-0 space-y-4">
-
-      {/* ── MAIN NAVIGATION ──────────────────────────────── */}
+      {/* Navigation */}
       <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm">
         <div className="px-4 py-3 border-b border-zinc-100 dark:border-zinc-800">
           <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Menu</p>
@@ -66,14 +56,10 @@ export default function Sidebar() {
                 key={sec.id}
                 onClick={() => setActiveSection(sec.id)}
                 className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-all duration-150 ${
-                  isActive
-                    ? 'bg-zinc-900 text-white dark:bg-white dark:text-black shadow-sm'
-                    : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                  isActive ? 'bg-zinc-900 text-white dark:bg-white dark:text-black shadow-sm' : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'
                 }`}
               >
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                  isActive ? 'bg-zinc-700 dark:bg-zinc-200' : 'bg-zinc-100 dark:bg-zinc-800'
-                }`}>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isActive ? 'bg-zinc-700 dark:bg-zinc-200' : 'bg-zinc-100 dark:bg-zinc-800'}`}>
                   <Icon className={`w-4 h-4 ${isActive ? 'text-white dark:text-black' : 'text-zinc-500 dark:text-zinc-400'}`} />
                 </div>
                 <div className="min-w-0">
@@ -86,17 +72,14 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      {/* ── ACTIVE PATIENT CARD ─────────────────────────── */}
+      {/* Active Patient Card */}
       <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 shadow-sm">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-green-500 block"></span>
             <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Active Patient</p>
           </div>
-          <button
-            onClick={() => setActiveSection('profile')}
-            className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition"
-          >
+          <button onClick={() => setActiveSection('profile')} className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">
             Edit →
           </button>
         </div>
@@ -118,7 +101,7 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* ── DRY FRUIT FILTERS (shown when browsing) ──────── */}
+      {/* Filters (only for catalog & home) */}
       {(activeSection === 'dryfruits' || activeSection === 'home') && (
         <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm">
           <div className="px-4 py-3 border-b border-zinc-100 dark:border-zinc-800 flex items-center gap-2">
@@ -132,16 +115,9 @@ export default function Sidebar() {
               return (
                 <button
                   key={cat.name}
-                  onClick={() => {
-                    setSelectedCategory(cat.name);
-                    if (activeSection !== 'dryfruits' && activeSection !== 'home') {
-                      setActiveSection('dryfruits');
-                    }
-                  }}
+                  onClick={() => handleNavFilter(setSelectedCategory, cat.name)}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition ${
-                    isActive
-                      ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white font-semibold'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900'
+                    isActive ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white font-semibold' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
@@ -156,32 +132,22 @@ export default function Sidebar() {
 
           <div className="px-3 pb-3 pt-1 border-t border-zinc-100 dark:border-zinc-800 space-y-1 mt-1">
             <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400 px-1 pt-2 pb-1 uppercase tracking-widest">Health Filter</p>
-            {HEALTH_FILTERS.map((h) => {
-              const isSelected = selectedHealthNeed === h.id;
-              return (
-                <button
-                  key={h.id}
-                  onClick={() => {
-                    setSelectedHealthNeed(h.id);
-                    if (activeSection !== 'dryfruits' && activeSection !== 'home') {
-                      setActiveSection('dryfruits');
-                    }
-                  }}
-                  className={`w-full text-left px-3 py-2 rounded-lg text-sm transition ${
-                    isSelected
-                      ? 'bg-zinc-900 text-white dark:bg-white dark:text-black font-semibold'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900'
-                  }`}
-                >
-                  {h.label}
-                </button>
-              );
-            })}
+            {HEALTH_FILTERS.map((h) => (
+              <button
+                key={h.id}
+                onClick={() => handleNavFilter(setSelectedHealthNeed, h.id)}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm transition ${
+                  selectedHealthNeed === h.id ? 'bg-zinc-900 text-white dark:bg-white dark:text-black font-semibold' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900'
+                }`}
+              >
+                {h.label}
+              </button>
+            ))}
           </div>
         </div>
       )}
 
-      {/* ── HELPLINE ────────────────────────────────────── */}
+      {/* Helpline */}
       <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 bg-zinc-50 dark:bg-zinc-900/50">
         <div className="flex items-start gap-3">
           <div className="w-8 h-8 rounded-lg bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center flex-shrink-0">
@@ -194,7 +160,6 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
-
     </aside>
   );
 }

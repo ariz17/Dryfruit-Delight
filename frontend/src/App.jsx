@@ -4,13 +4,12 @@ import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
 import DosagePlannerModal from './components/modals/DosagePlannerModal';
 import SoakingGuideModal from './components/modals/SoakingGuideModal';
-import ProfileModal from './components/modals/ProfileModal';
 import MedicalInvoiceModal from './components/modals/MedicalInvoiceModal';
 import MonthlyRefillModal from './components/modals/MonthlyRefillModal';
 import CartDrawer from './components/modals/CartDrawer';
-import { HeartPulse, ShieldCheck, PhoneCall } from 'lucide-react';
+import { HeartPulse, PhoneCall } from 'lucide-react';
 
-function App() {
+export default function App() {
   return (
     <Router>
       <div className="bg-zinc-50 dark:bg-black min-h-screen flex flex-col font-sans text-zinc-900 dark:text-zinc-100 antialiased transition-colors duration-200">
@@ -26,7 +25,6 @@ function App() {
         {/* Interactive Capability Modals & Drawers */}
         <DosagePlannerModal />
         <SoakingGuideModal />
-        <ProfileModal />
         <MedicalInvoiceModal />
         <MonthlyRefillModal />
         <CartDrawer />
@@ -84,9 +82,7 @@ function App() {
             </div>
 
             <div className="pt-6 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-zinc-400 text-[11px]">
-              <div>
-                &copy; {new Date().getFullYear()} Dryfruit Delight Healthcare Pvt. Ltd. All rights reserved.
-              </div>
+              <div>&copy; {new Date().getFullYear()} Dryfruit Delight Healthcare Pvt. Ltd. All rights reserved.</div>
               <div className="flex gap-4">
                 <span className="hover:text-zinc-600 dark:hover:text-zinc-300 cursor-pointer">Apollo EHR Terms</span>
                 <span className="hover:text-zinc-600 dark:hover:text-zinc-300 cursor-pointer">Medical Subsidy Policy</span>
@@ -99,5 +95,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;
