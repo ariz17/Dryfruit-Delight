@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { X, User, ShieldCheck, HeartPulse, Check, AlertCircle } from 'lucide-react';
+import { X, User, Check } from 'lucide-react';
 import { useStore, SAMPLE_PROFILES, calculateSubsidy } from '../../store/useStore';
 
 export default function ProfileModal() {
-  const { profile, setProfile, selectSampleProfile, activeModal, closeModal, subsidyPercent } = useStore();
+  const { profile, setProfile, selectSampleProfile, activeModal, closeModal } = useStore();
 
   const [formData, setFormData] = useState({
     name: profile.name,
@@ -28,33 +28,33 @@ export default function ProfileModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-slate-200 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-2xs animate-in fade-in duration-200">
+      <div className="bg-white dark:bg-zinc-950 rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-zinc-200 dark:border-zinc-800 shadow-2xl text-zinc-900 dark:text-zinc-100">
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white p-5 flex items-center justify-between sticky top-0 z-10">
+        <div className="bg-zinc-900 text-white dark:bg-black p-4 flex items-center justify-between sticky top-0 z-10 border-b border-zinc-800">
           <div className="flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-full bg-emerald-700/60 flex items-center justify-center">
-              <User className="w-4 h-4 text-emerald-200" />
+            <span className="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center">
+              <User className="w-3.5 h-3.5 text-zinc-200" />
             </span>
             <div>
-              <h3 className="text-base font-bold">Patient / Senior Profile</h3>
-              <p className="text-xs text-emerald-200">Apollo Healthcare Partner Network</p>
+              <h3 className="text-sm font-bold tracking-tight">Patient Senior Profile</h3>
+              <p className="text-[10px] text-zinc-400">Apollo Healthcare Partner Network</p>
             </div>
           </div>
           <button 
             onClick={closeModal}
-            className="text-emerald-200 hover:text-white p-1 rounded-lg hover:bg-white/10 transition"
+            className="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="p-6 space-y-5">
+        <div className="p-5 space-y-4">
           {/* Quick Switch Preset Profiles */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-              Quick Switch Preset Senior Profiles:
+            <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider mb-2">
+              Preset Senior Profiles:
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {SAMPLE_PROFILES.map((p) => {
@@ -73,14 +73,14 @@ export default function ProfileModal() {
                         contact: p.contact
                       });
                     }}
-                    className={`p-2.5 rounded-xl border text-left text-xs transition ${
+                    className={`p-2.5 rounded-lg border text-left text-xs transition ${
                       isSelected
-                        ? 'border-emerald-600 bg-emerald-50/80 text-emerald-900 ring-2 ring-emerald-500/20'
-                        : 'border-slate-200 bg-slate-50 hover:bg-emerald-50/40 text-slate-700'
+                        ? 'border-zinc-900 dark:border-white bg-zinc-100 dark:bg-zinc-900 font-bold'
+                        : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400'
                     }`}
                   >
-                    <p className="font-bold truncate">{p.name}</p>
-                    <p className="text-[10px] text-slate-500 mt-0.5">{p.age} yrs • {p.condition.replace(' Management', '')}</p>
+                    <p className="font-bold text-zinc-900 dark:text-white truncate">{p.name}</p>
+                    <p className="text-[10px] text-zinc-500 mt-0.5">{p.age} yrs • {p.condition.replace(' Management', '')}</p>
                   </button>
                 );
               })}
@@ -88,28 +88,28 @@ export default function ProfileModal() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3.5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
+                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">Full Name</label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Age (Years)</label>
+                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">Age (Years)</label>
                 <input
                   type="number"
                   min="1"
                   max="120"
                   value={formData.age}
                   onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-white"
                   required
                 />
               </div>
@@ -117,22 +117,22 @@ export default function ProfileModal() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Apollo UHID / Health ID</label>
+                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">Apollo UHID</label>
                 <input
                   type="text"
                   value={formData.uhid}
                   onChange={(e) => setFormData({ ...formData, uhid: e.target.value })}
-                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs font-mono text-slate-800 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-1.5 text-xs font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Blood Group</label>
+                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">Blood Group</label>
                 <select
                   value={formData.bloodGroup}
                   onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
-                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-white"
                 >
                   <option value="O+">O positive (O+)</option>
                   <option value="A+">A positive (A+)</option>
@@ -145,11 +145,11 @@ export default function ProfileModal() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Primary Medical Care Category</label>
+              <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">Primary Condition</label>
               <select
                 value={formData.condition}
                 onChange={(e) => setFormData({ ...formData, condition: e.target.value })}
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:ring-1 focus:ring-emerald-500"
+                className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-white"
               >
                 <option value="Senior Citizen Care">Senior Care (60+)</option>
                 <option value="Diabetes Management">Diabetes Care (Low Glycemic Index)</option>
@@ -160,12 +160,12 @@ export default function ProfileModal() {
             </div>
 
             {/* Live Subsidy Rate Preview */}
-            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 flex items-center justify-between">
+            <div className="bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 flex items-center justify-between">
               <div>
-                <span className="text-[11px] font-bold text-emerald-900 block">Eligible Apollo Subsidy Rate</span>
-                <span className="text-[10px] text-emerald-700">Calculated automatically from age ({formData.age} yrs) and {formData.condition}</span>
+                <span className="text-[11px] font-bold text-zinc-900 dark:text-white block">Apollo Subsidy Rate</span>
+                <span className="text-[10px] text-zinc-500">Calculated for age {formData.age} yrs and {formData.condition}</span>
               </div>
-              <span className="bg-emerald-600 text-white font-black text-sm px-3 py-1 rounded-lg shadow-xs">
+              <span className="bg-zinc-900 text-white dark:bg-white dark:text-black font-mono font-bold text-xs px-2.5 py-1 rounded">
                 {currentCalculated}% OFF
               </span>
             </div>
@@ -174,15 +174,15 @@ export default function ProfileModal() {
               <button
                 type="button"
                 onClick={closeModal}
-                className="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs py-2.5 rounded-xl transition"
+                className="w-1/2 bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-semibold text-xs py-2 rounded-lg transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="w-1/2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs py-2.5 rounded-xl transition shadow-xs flex items-center justify-center gap-1.5"
+                className="w-1/2 bg-zinc-900 hover:bg-black text-white dark:bg-white dark:text-black dark:hover:bg-zinc-200 font-bold text-xs py-2 rounded-lg transition shadow-xs flex items-center justify-center gap-1.5"
               >
-                <Check className="w-4 h-4" />
+                <Check className="w-3.5 h-3.5" />
                 <span>Save Profile</span>
               </button>
             </div>

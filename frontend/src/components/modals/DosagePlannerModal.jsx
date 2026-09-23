@@ -78,41 +78,41 @@ export default function DosagePlannerModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-200 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-2xs animate-in fade-in duration-200">
+      <div className="bg-white dark:bg-zinc-950 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-zinc-200 dark:border-zinc-800 shadow-2xl text-zinc-900 dark:text-zinc-100">
         
         {/* Modal Header */}
-        <div className="bg-gradient-to-r from-amber-900 to-amber-950 text-white p-5 flex items-center justify-between sticky top-0 z-10">
+        <div className="bg-zinc-900 text-white dark:bg-black p-4 flex items-center justify-between sticky top-0 z-10 border-b border-zinc-800">
           <div className="flex items-center gap-2.5">
-            <span className="text-2xl">🥗</span>
+            <span className="text-xl">🥗</span>
             <div>
-              <h3 className="text-base font-bold">Elderly Daily Dosage Planner</h3>
-              <p className="text-xs text-amber-200">Personalized dryfruit protocol verified by Apollo Senior Care</p>
+              <h3 className="text-sm font-bold tracking-tight">Elderly Daily Dosage Planner</h3>
+              <p className="text-[10px] text-zinc-400">Personalized dryfruit protocol verified by Apollo Senior Care</p>
             </div>
           </div>
           <button 
             onClick={closeModal}
-            className="text-amber-200 hover:text-white p-1 rounded-lg hover:bg-white/10 transition"
+            className="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="p-6 space-y-5">
+        <div className="p-5 space-y-4">
           {/* Condition Selector */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-              Select Health Goal or Medical Condition:
+            <label className="block text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider mb-2">
+              Select Health Goal or Condition:
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {Object.keys(DOSAGE_GUIDES).map((cond) => (
                 <button
                   key={cond}
                   onClick={() => setSelectedCondition(cond)}
-                  className={`text-xs p-2.5 rounded-xl border text-center font-semibold transition ${
+                  className={`text-xs p-2 rounded-lg border text-center font-semibold transition ${
                     selectedCondition === cond
-                      ? 'bg-amber-800 text-white border-amber-900 shadow-sm'
-                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-amber-50'
+                      ? 'bg-zinc-900 text-white dark:bg-white dark:text-black border-zinc-900 dark:border-white shadow-xs'
+                      : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100'
                   }`}
                 >
                   {cond.replace(' Management', '').replace(' Care', '')}
@@ -122,41 +122,41 @@ export default function DosagePlannerModal() {
           </div>
 
           {/* Plan Summary Card */}
-          <div className="bg-amber-50/70 border border-amber-200 rounded-xl p-4 flex items-start justify-between gap-3">
+          <div className="bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3.5 flex items-start justify-between gap-3">
             <div>
-              <span className="text-[11px] font-bold text-amber-800 uppercase tracking-wide">Target Outcome</span>
-              <h4 className="text-sm font-bold text-slate-900">{guide.title}</h4>
-              <p className="text-xs text-slate-600 mt-0.5">{guide.target}</p>
+              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wide">Target Outcome</span>
+              <h4 className="text-xs font-bold text-zinc-900 dark:text-white">{guide.title}</h4>
+              <p className="text-[11px] text-zinc-500 mt-0.5">{guide.target}</p>
             </div>
-            <span className="text-xs bg-emerald-600 text-white font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 shadow-xs">
-              <ShieldCheck className="w-3.5 h-3.5" />
+            <span className="text-[10px] bg-zinc-900 text-white dark:bg-white dark:text-black font-bold px-2 py-0.5 rounded flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-emerald-400 dark:text-emerald-600" />
               Apollo Approved
             </span>
           </div>
 
           {/* Schedule Table */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-              Recommended Daily Schedule:
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
+              Recommended Daily Portions:
             </h4>
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {guide.schedule.map((item, idx) => (
                 <div 
                   key={idx} 
-                  className="bg-white border border-slate-200 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs hover:border-amber-300 transition"
+                  className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
                 >
                   <div className="flex items-start gap-2.5">
-                    <span className="w-6 h-6 rounded-full bg-amber-100 text-amber-900 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-bold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5 border border-zinc-200 dark:border-zinc-700">
                       {idx + 1}
                     </span>
                     <div>
-                      <h5 className="text-xs font-bold text-slate-900">{item.nut}</h5>
-                      <p className="text-[11px] text-amber-800 font-medium">
-                        {item.count} • <span className="text-slate-500">{item.prep}</span>
+                      <h5 className="text-xs font-bold text-zinc-900 dark:text-white">{item.nut}</h5>
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400">
+                        {item.count} • <span className="text-zinc-400">{item.prep}</span>
                       </p>
                     </div>
                   </div>
-                  <span className="text-[11px] text-slate-600 bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-lg font-medium">
+                  <span className="text-[10px] text-zinc-500 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 px-2 py-0.5 rounded font-mono">
                     {item.benefit}
                   </span>
                 </div>
@@ -165,35 +165,35 @@ export default function DosagePlannerModal() {
           </div>
 
           {/* Apollo Doctor Note */}
-          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 flex items-start gap-2.5 text-xs text-emerald-900">
-            <HeartPulse className="w-4 h-4 text-emerald-700 flex-shrink-0 mt-0.5" />
-            <p className="leading-relaxed">
-              <strong>Clinical Advisory:</strong> {guide.apolloNote}
+          <div className="bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 flex items-start gap-2.5 text-xs text-zinc-700 dark:text-zinc-300">
+            <HeartPulse className="w-4 h-4 text-zinc-500 dark:text-zinc-400 flex-shrink-0 mt-0.5" />
+            <p className="text-[11px] leading-relaxed">
+              <strong>Clinical Note:</strong> {guide.apolloNote}
             </p>
           </div>
 
           {/* Action Button */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-slate-100">
-            <div className="text-xs text-slate-500">
-              Includes pre-portioned almonds, walnuts, figs & seeds (Monthly Supply)
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-zinc-200 dark:border-zinc-800">
+            <div className="text-[11px] text-zinc-500">
+              Pre-portioned vacuum sealed supply for {selectedCondition}
             </div>
             <button
               onClick={handleAddDailyPack}
-              className={`w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition ${
+              className={`w-full sm:w-auto px-4 py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 transition ${
                 added 
                   ? 'bg-emerald-600 text-white' 
-                  : 'bg-amber-800 hover:bg-amber-900 text-white shadow-sm'
+                  : 'bg-zinc-900 hover:bg-black text-white dark:bg-white dark:text-black dark:hover:bg-zinc-200 shadow-xs'
               }`}
             >
               {added ? (
                 <>
-                  <Check className="w-4 h-4" />
+                  <Check className="w-3.5 h-3.5" />
                   <span>Added to Cart!</span>
                 </>
               ) : (
                 <>
                   <span>Add Recommended 30-Day Pack (₹1,299)</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </>
               )}
             </button>

@@ -1,135 +1,131 @@
 import { Link } from 'react-router-dom';
-import { ShoppingCart, HeartPulse, ShieldCheck, User, Search, X, Sparkles, FileText } from 'lucide-react';
+import { ShoppingCart, Search, X, Sun, Moon, User } from 'lucide-react';
 import { useStore } from '../store/useStore';
 
 export default function Header() {
   const { 
     profile, 
     subsidyPercent, 
-    apolloVerified, 
     cart, 
     searchQuery, 
     setSearchQuery, 
-    openModal 
+    openModal,
+    darkMode,
+    toggleDarkMode,
+    activeSection,
+    setActiveSection
   } = useStore();
 
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <header className="bg-gradient-to-r from-amber-950 via-amber-900 to-amber-950 text-white sticky top-0 z-40 border-b border-amber-800/80 shadow-md">
-      {/* Top micro bar for Apollo senior announcement */}
-      <div className="bg-emerald-900/90 text-emerald-100 text-[11px] py-1 px-4 border-b border-emerald-800 flex items-center justify-between">
+    <header className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white sticky top-0 z-40 border-b border-zinc-200 dark:border-zinc-800 transition-colors duration-200">
+
+      {/* Top Announcement Bar */}
+      <div className="bg-zinc-950 dark:bg-zinc-900 text-zinc-300 text-xs py-2 px-4 border-b border-zinc-800">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span><strong>Apollo Healthcare Tie-Up:</strong> Up to 45% Senior Subsidy active across all 10 dryfruit varieties</span>
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-400"></span>
+            <span>Apollo Hospitals Senior Care Partner · Medical Subsidy up to <strong className="text-white">{subsidyPercent}%</strong> off</span>
           </div>
-          <div className="hidden sm:flex items-center gap-4 text-[11px]">
-            <button 
-              onClick={() => openModal('dosage')} 
-              className="hover:text-white underline text-emerald-200 transition"
-            >
-              Dosage Planner
-            </button>
-            <span>•</span>
-            <button 
-              onClick={() => openModal('soaking')} 
-              className="hover:text-white underline text-emerald-200 transition"
-            >
-              Soaking Guide
-            </button>
-            <span>•</span>
-            <button 
-              onClick={() => openModal('invoice')} 
-              className="hover:text-white underline text-emerald-200 transition"
-            >
-              Mediclaim Invoice (PDF)
-            </button>
+          <div className="hidden sm:flex items-center gap-4 text-zinc-400">
+            <button onClick={() => setActiveSection('health')} className="hover:text-white transition">Health & Subsidy</button>
+            <span>·</span>
+            <button onClick={() => openModal('dosage')} className="hover:text-white transition">Dosage Planner</button>
+            <span>·</span>
+            <button onClick={() => openModal('invoice')} className="hover:text-white transition">Mediclaim Invoice</button>
           </div>
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
-        
-        {/* Brand Logo & Healthcare tag */}
-        <div className="flex items-center gap-3">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-amber-950 font-black text-lg shadow-sm">
-              🌰
-            </div>
-            <div>
-              <span className="text-base sm:text-lg font-black tracking-tight text-amber-50">
-                Dryfruit <span className="text-amber-300 font-light">Delight</span>
-              </span>
-              <span className="block text-[9px] uppercase tracking-wider font-bold text-amber-300/80 -mt-1">
-                Senior Nutrition & Healthcare
-              </span>
-            </div>
-          </Link>
+      {/* Main Nav */}
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
 
-          <div className="hidden lg:flex items-center gap-1.5 bg-amber-800/60 border border-amber-700/60 px-2.5 py-1 rounded-full text-[11px] text-amber-200">
-            <HeartPulse className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="font-semibold">Apollo Partner</span>
+        {/* Brand */}
+        <button
+          onClick={() => setActiveSection('home')}
+          className="flex items-center gap-3 group flex-shrink-0"
+        >
+          <div className="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-black flex items-center justify-center font-black text-lg shadow-sm transition group-hover:scale-105">
+            🌰
           </div>
-        </div>
+          <div className="text-left">
+            <span className="text-base font-extrabold tracking-tight text-zinc-900 dark:text-white block leading-tight">
+              DRYFRUIT <span className="font-light text-zinc-400">DELIGHT</span>
+            </span>
+            <span className="text-xs text-zinc-500 block">Senior Nutrition · Clinical Care</span>
+          </div>
+        </button>
 
-        {/* Global Live Search Box */}
-        <div className="flex-1 max-w-md hidden md:block">
+        {/* Search */}
+        <div className="flex-1 max-w-lg hidden md:block">
           <div className="relative">
-            <Search className="w-4 h-4 text-amber-300/60 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search almonds, figs, low-GI, heart health..."
+              placeholder="Search almonds, figs, low-GI, heart care..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-amber-950/70 border border-amber-700/60 rounded-xl pl-9 pr-8 py-1.5 text-xs text-white placeholder-amber-200/50 focus:outline-none focus:ring-1 focus:ring-amber-400 focus:bg-amber-950"
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (activeSection !== 'dryfruits' && e.target.value.trim()) {
+                  setActiveSection('dryfruits');
+                }
+              }}
+              className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl pl-10 pr-9 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-white transition"
             />
             {searchQuery && (
-              <button 
+              <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-2.5 text-amber-300/60 hover:text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-4 h-4" />
               </button>
             )}
           </div>
         </div>
 
-        {/* Right Action Icons: Profile, Cart, Verification Pill */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          
-          {/* Senior Patient Quick Button */}
+        {/* Right Actions */}
+        <div className="flex items-center gap-2">
+
+          {/* Dark Mode Toggle */}
           <button
-            onClick={() => openModal('profile')}
-            className="flex items-center gap-2 bg-amber-800/50 hover:bg-amber-800 border border-amber-700/50 px-2.5 py-1.5 rounded-xl text-xs transition text-left"
-            title="View & Edit Patient Profile"
+            onClick={toggleDarkMode}
+            className="w-9 h-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 transition flex items-center justify-center"
+            title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
-            <div className="w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center text-[11px] font-bold text-white shadow-xs">
+            {darkMode
+              ? <Sun className="w-4 h-4 text-yellow-400" />
+              : <Moon className="w-4 h-4" />
+            }
+          </button>
+
+          {/* Patient Profile Button */}
+          <button
+            onClick={() => setActiveSection('profile')}
+            className={`flex items-center gap-2 border px-3 py-2 rounded-xl text-sm transition ${
+              activeSection === 'profile'
+                ? 'bg-zinc-900 text-white dark:bg-white dark:text-black border-zinc-900 dark:border-white font-bold'
+                : 'bg-zinc-50 dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200'
+            }`}
+          >
+            <div className="w-6 h-6 rounded-full bg-zinc-300 dark:bg-zinc-700 flex items-center justify-center text-xs font-bold text-zinc-800 dark:text-zinc-200 flex-shrink-0">
               {profile.name.charAt(0)}
             </div>
             <div className="hidden sm:block text-left leading-tight">
-              <p className="text-[11px] font-bold text-white truncate max-w-[110px]">{profile.name}</p>
-              <p className="text-[10px] text-emerald-300 font-semibold">{subsidyPercent}% Apollo Subsidy</p>
+              <p className="text-sm font-semibold truncate max-w-[90px]">{profile.name}</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">{subsidyPercent}% Subsidy</p>
             </div>
           </button>
 
-          {/* Cart Button */}
+          {/* Cart */}
           <button
             onClick={() => openModal('cart')}
-            className="relative bg-emerald-700 hover:bg-emerald-800 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
+            className="relative bg-zinc-900 hover:bg-black dark:bg-white dark:hover:bg-zinc-100 dark:text-black text-white h-9 px-4 rounded-xl text-sm font-bold transition flex items-center gap-2 shadow-sm"
           >
             <ShoppingCart className="w-4 h-4" />
             <span className="hidden sm:inline">Cart</span>
             {totalCartCount > 0 && (
-              <span className="bg-amber-400 text-amber-950 text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center -ml-0.5">
+              <span className="bg-white text-black dark:bg-black dark:text-white text-xs font-black w-5 h-5 rounded-full flex items-center justify-center border border-zinc-300 dark:border-zinc-700 -mr-1">
                 {totalCartCount}
               </span>
             )}

@@ -48,7 +48,38 @@ export const calculateSubsidy = (age, condition) => {
   return Math.min(rate, 45); // Max 45% subsidy
 };
 
+// Check initial dark mode from localStorage or system preference
+const getInitialDarkMode = () => {
+  if (typeof window === 'undefined') return false;
+  const saved = localStorage.getItem('theme');
+  if (saved) return saved === 'dark';
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+};
+
+// Apply class immediately
+if (typeof document !== 'undefined') {
+  const isDark = getInitialDarkMode();
+  document.documentElement.classList.toggle('dark', isDark);
+}
+
 export const useStore = create((set, get) => ({
+  // Theme State
+  darkMode: getInitialDarkMode(),
+  toggleDarkMode: () => {
+    const next = !get().darkMode;
+    set({ darkMode: next });
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('theme', next ? 'dark' : 'light');
+    }
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.toggle('dark', next);
+    }
+  },
+
+  // Active Navigation Section ('home' | 'dryfruits' | 'health' | 'profile' | 'features')
+  activeSection: 'home',
+  setActiveSection: (section) => set({ activeSection: section }),
+
   // Profile State
   profile: SAMPLE_PROFILES[0],
   setProfile: (newProfile) => {
