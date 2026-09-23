@@ -42,7 +42,6 @@ export default function Sidebar() {
 
   return (
     <aside className="w-full lg:w-72 flex-shrink-0 space-y-4">
-      {/* Navigation */}
       <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm">
         <div className="px-4 py-3 border-b border-zinc-100 dark:border-zinc-800">
           <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Menu</p>
@@ -72,7 +71,6 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      {/* Active Patient Card */}
       <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 shadow-sm">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
@@ -101,7 +99,6 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* Filters (only for catalog & home) */}
       {(activeSection === 'dryfruits' || activeSection === 'home') && (
         <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm">
           <div className="px-4 py-3 border-b border-zinc-100 dark:border-zinc-800 flex items-center gap-2">
@@ -147,7 +144,6 @@ export default function Sidebar() {
         </div>
       )}
 
-      {/* Helpline */}
       <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 bg-zinc-50 dark:bg-zinc-900/50">
         <div className="flex items-start gap-3">
           <div className="w-8 h-8 rounded-lg bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center flex-shrink-0">

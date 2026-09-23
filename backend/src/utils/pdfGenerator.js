@@ -1,23 +1,13 @@
 const PDFDocument = require('pdfkit');
-const fs = require('fs');
-const path = require('path');
 
-/**
- * Generates a beautiful PDF Invoice dynamically for the customer.
- * In a real-world scenario, you would stream this back to the user or attach it to an email.
- */
 const generateInvoicePDF = (order, callback) => {
   const doc = new PDFDocument({ margin: 50 });
-  
-  // Create a buffer chunk array to collect the PDF stream data
   let buffers = [];
   doc.on('data', buffers.push.bind(buffers));
   doc.on('end', () => {
-    let pdfData = Buffer.concat(buffers);
-    callback(pdfData);
+    callback(Buffer.concat(buffers));
   });
 
-  // --- PDF Styling & Content ---
   doc.fillColor('#444444')
      .fontSize(20)
      .text('Dryfruit Delight', 50, 57)
@@ -36,7 +26,6 @@ const generateInvoicePDF = (order, callback) => {
   doc.text(`Shipping Address: ${order.shippingAddress.address}, ${order.shippingAddress.city}`);
   doc.moveDown();
 
-  // Draw Table Header
   doc.font('Helvetica-Bold');
   doc.text('Item', 50, 250);
   doc.text('Qty', 300, 250);
@@ -44,7 +33,6 @@ const generateInvoicePDF = (order, callback) => {
   doc.moveTo(50, 265).lineTo(500, 265).stroke();
   doc.font('Helvetica');
 
-  // Draw Items
   let position = 280;
   order.orderItems.forEach(item => {
     doc.text(item.name, 50, position);
@@ -54,8 +42,7 @@ const generateInvoicePDF = (order, callback) => {
   });
 
   doc.moveTo(50, position + 10).lineTo(500, position + 10).stroke();
-  
-  // Totals
+
   doc.font('Helvetica-Bold');
   doc.text('Total Amount Paid: ', 300, position + 30);
   doc.fillColor('green').text('Rs. ' + order.totalPrice.toFixed(2), 420, position + 30);
@@ -63,7 +50,6 @@ const generateInvoicePDF = (order, callback) => {
   doc.moveDown(3);
   doc.fillColor('#444444').fontSize(10).text('Thank you for trusting Dryfruit Delight for your nutrition needs!', { align: 'center' });
 
-  // Finalize the PDF file
   doc.end();
 };
 

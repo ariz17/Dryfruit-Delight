@@ -11,7 +11,6 @@ export default function Header() {
 
   return (
     <header className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white sticky top-0 z-40 border-b border-zinc-200 dark:border-zinc-800 transition-colors duration-200">
-      {/* Top Announcement Bar */}
       <div className="bg-zinc-950 dark:bg-zinc-900 text-zinc-300 text-xs py-2 px-4 border-b border-zinc-800">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -28,9 +27,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Main Nav */}
       <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-        {/* Brand */}
         <button onClick={() => setActiveSection('home')} className="flex items-center gap-3 group flex-shrink-0">
           <div className="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-black flex items-center justify-center font-black text-lg shadow-sm transition group-hover:scale-105">
             🌰
@@ -43,7 +40,6 @@ export default function Header() {
           </div>
         </button>
 
-        {/* Search */}
         <div className="flex-1 max-w-lg hidden md:block">
           <div className="relative">
             <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -65,9 +61,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Right Actions */}
         <div className="flex items-center gap-2">
-          {/* Dark Mode Toggle */}
           <button
             onClick={toggleDarkMode}
             className="w-9 h-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 transition flex items-center justify-center"
@@ -76,7 +70,6 @@ export default function Header() {
             {darkMode ? <Sun className="w-4 h-4 text-yellow-400" /> : <Moon className="w-4 h-4" />}
           </button>
 
-          {/* Patient Profile Button */}
           <button
             onClick={() => setActiveSection('profile')}
             className={`flex items-center gap-2 border px-3 py-2 rounded-xl text-sm transition ${
@@ -94,7 +87,6 @@ export default function Header() {
             </div>
           </button>
 
-          {/* Cart */}
           <button
             onClick={() => openModal('cart')}
             className="relative bg-zinc-900 hover:bg-black dark:bg-white dark:hover:bg-zinc-100 dark:text-black text-white h-9 px-4 rounded-xl text-sm font-bold transition flex items-center gap-2 shadow-sm"

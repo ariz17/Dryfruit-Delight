@@ -22,14 +22,12 @@ export default function App() {
           </Routes>
         </main>
 
-        {/* Interactive Capability Modals & Drawers */}
         <DosagePlannerModal />
         <SoakingGuideModal />
         <MedicalInvoiceModal />
         <MonthlyRefillModal />
         <CartDrawer />
 
-        {/* Minimal Monochrome Healthcare Footer */}
         <footer className="bg-white dark:bg-zinc-950 text-zinc-600 dark:text-zinc-400 border-t border-zinc-200 dark:border-zinc-800 text-xs mt-auto transition-colors duration-200">
           <div className="container mx-auto px-4 py-8 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

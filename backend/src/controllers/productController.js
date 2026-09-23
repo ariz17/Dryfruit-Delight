@@ -7,7 +7,6 @@ const getProductsList = async () => {
     try {
       return await Product.find({});
     } catch {
-      // Fallback to mock data if DB error
     }
   }
   return mockProducts.map((p, idx) => ({ _id: p._id || String(idx + 1), ...p }));

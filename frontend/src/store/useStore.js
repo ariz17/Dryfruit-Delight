@@ -37,18 +37,15 @@ export const SAMPLE_PROFILES = [
 ];
 
 export const calculateSubsidy = (age, condition) => {
-  let rate = 25; // Base Apollo Hospital Partnership subsidy
+  let rate = 25;
   if (age >= 60) rate += 10;
   if (age >= 75) rate += 5;
-  if (condition === 'Diabetes Management' || condition === 'Heart Health') {
-    rate += 10;
-  } else if (condition === 'Low Income Support') {
+  if (condition === 'Diabetes Management' || condition === 'Heart Health' || condition === 'Low Income Support') {
     rate += 10;
   }
-  return Math.min(rate, 45); // Max 45% subsidy
+  return Math.min(rate, 45);
 };
 
-// Check initial dark mode from localStorage or system preference
 const getInitialDarkMode = () => {
   if (typeof window === 'undefined') return false;
   const saved = localStorage.getItem('theme');
@@ -56,14 +53,11 @@ const getInitialDarkMode = () => {
   return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 };
 
-// Apply class immediately
 if (typeof document !== 'undefined') {
-  const isDark = getInitialDarkMode();
-  document.documentElement.classList.toggle('dark', isDark);
+  document.documentElement.classList.toggle('dark', getInitialDarkMode());
 }
 
 export const useStore = create((set, get) => ({
-  // Theme State
   darkMode: getInitialDarkMode(),
   toggleDarkMode: () => {
     const next = !get().darkMode;
@@ -76,29 +70,24 @@ export const useStore = create((set, get) => ({
     }
   },
 
-  // Active Navigation Section ('home' | 'dryfruits' | 'health' | 'profile' | 'features')
   activeSection: 'home',
   setActiveSection: (section) => set({ activeSection: section }),
 
-  // Profile State
   profile: SAMPLE_PROFILES[0],
   setProfile: (newProfile) => {
     const updated = { ...get().profile, ...newProfile };
-    const newRate = calculateSubsidy(updated.age, updated.condition);
-    set({ profile: updated, subsidyPercent: newRate });
+    set({ profile: updated, subsidyPercent: calculateSubsidy(updated.age, updated.condition) });
   },
   selectSampleProfile: (id) => {
     const target = SAMPLE_PROFILES.find((p) => p.id === id) || SAMPLE_PROFILES[0];
-    const newRate = calculateSubsidy(target.age, target.condition);
     set({
       profile: target,
-      subsidyPercent: newRate,
+      subsidyPercent: calculateSubsidy(target.age, target.condition),
       apolloVerified: true,
       prescriptionDoc: target.docName
     });
   },
 
-  // Medication & Subsidy State
   apolloVerified: true,
   subsidyPercent: 45,
   prescriptionDoc: 'Apollo_Rx_Diabetes_Cardio.pdf',
@@ -111,17 +100,15 @@ export const useStore = create((set, get) => ({
     setTimeout(() => {
       const ageToUse = customAge || get().profile.age;
       const condToUse = customCondition || get().profile.condition;
-      const rate = calculateSubsidy(ageToUse, condToUse);
       set({
         apolloVerified: true,
         isVerifying: false,
-        subsidyPercent: rate,
+        subsidyPercent: calculateSubsidy(ageToUse, condToUse),
         prescriptionDoc: docName || 'Apollo_Prescription_Verified.pdf'
       });
     }, 900);
   },
 
-  // Filters State
   selectedCategory: 'All',
   setSelectedCategory: (cat) => set({ selectedCategory: cat }),
   selectedHealthNeed: 'All',
@@ -129,33 +116,16 @@ export const useStore = create((set, get) => ({
   searchQuery: '',
   setSearchQuery: (query) => set({ searchQuery: query }),
 
-  // Cart State
   cart: [
-    {
-      _id: '1',
-      name: 'Premium Californian Almonds (Badam)',
-      price: 999,
-      discountPrice: 799,
-      quantity: 1,
-      image: '/images/almonds.png'
-    },
-    {
-      _id: '4',
-      name: 'Organic Afghan Figs (Anjeer)',
-      price: 850,
-      discountPrice: 699,
-      quantity: 1,
-      image: '/images/figs.png'
-    }
+    { _id: '1', name: 'Premium Californian Almonds (Badam)', price: 999, discountPrice: 799, quantity: 1, image: '/images/almonds.png' },
+    { _id: '4', name: 'Organic Afghan Figs (Anjeer)', price: 850, discountPrice: 699, quantity: 1, image: '/images/figs.png' }
   ],
   addToCart: (product, qty = 1) => {
     const cart = get().cart;
     const existing = cart.find((item) => item._id === product._id);
     if (existing) {
       set({
-        cart: cart.map((item) =>
-          item._id === product._id ? { ...item, quantity: item.quantity + qty } : item
-        )
+        cart: cart.map((item) => (item._id === product._id ? { ...item, quantity: item.quantity + qty } : item))
       });
     } else {
       set({ cart: [...cart, { ...product, quantity: qty }] });
@@ -169,16 +139,13 @@ export const useStore = create((set, get) => ({
       get().removeFromCart(id);
     } else {
       set({
-        cart: get().cart.map((item) =>
-          item._id === id ? { ...item, quantity: qty } : item
-        )
+        cart: get().cart.map((item) => (item._id === id ? { ...item, quantity: qty } : item))
       });
     }
   },
   clearCart: () => set({ cart: [] }),
 
-  // Modal State
-  activeModal: null, // 'dosage' | 'soaking' | 'profile' | 'cart' | 'invoice' | 'monthlyRefill'
+  activeModal: null,
   openModal: (modalName) => set({ activeModal: modalName }),
   closeModal: () => set({ activeModal: null })
 }));

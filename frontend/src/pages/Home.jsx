@@ -159,7 +159,6 @@ export default function Home() {
         <Sidebar />
 
         <div className="flex-1 min-w-0">
-          {/* SECTION: HOME */}
           {activeSection === 'home' && (
             <div className="space-y-8">
               <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-8 shadow-sm">
@@ -242,7 +241,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* SECTION: DRY FRUITS */}
           {activeSection === 'dryfruits' && (
             <div className="space-y-6">
               <div className="bg-white dark:bg-zinc-950 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -279,7 +277,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* SECTION: HEALTH & SUBSIDY */}
           {activeSection === 'health' && (
             <div className="space-y-6">
               <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-sm">
@@ -382,7 +379,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* SECTION: PROFILE */}
           {activeSection === 'profile' && (
             <div className="space-y-6">
               <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-sm">
@@ -492,7 +488,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* SECTION: FEATURES */}
           {activeSection === 'features' && (
             <div className="space-y-6">
               <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-sm">
